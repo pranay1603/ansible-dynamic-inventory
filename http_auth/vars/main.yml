@@ -1,0 +1,5 @@
+---
+# vars file for http_auth
+ ports: "8080"
+
+ bp_port: "80"

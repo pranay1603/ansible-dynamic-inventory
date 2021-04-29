@@ -1,0 +1,28 @@
+- name: "launching loadbalancer in aws"
+  ec2:
+       assign_public_ip: yes
+       aws_access_key: "{{ x }}"
+       aws_secret_key: "{{ y }}"
+       count: 1
+       group_id: sg-5780ce30
+       wait: yes
+       wait_timeout: 60
+       image: ami-0a9d27a9f4f5c0efc
+       instance_tags:
+               Name: LoadBalancer
+               country: IN
+       instance_type: t2.micro
+       key_name: pranaykey
+       region: ap-south-1
+       state: present
+       vpc_subnet_id: subnet-5ddcd635
+  register: lb
+
+- name: "adding ips to inventory"
+  blockinfile:
+    path: /inventory/invent1
+    create: yes
+    block: |
+      [loadbalancer]
+      {{ lb.instances[0].public_ip }}
+

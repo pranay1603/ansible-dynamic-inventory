@@ -1,0 +1,7 @@
+- hosts: webserver
+          - role_httpd
+
+- hosts: loadbalancer
+  roles:
+          - http_auth  
+             

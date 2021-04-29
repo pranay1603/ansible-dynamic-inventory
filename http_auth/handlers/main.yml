@@ -1,0 +1,6 @@
+---
+# handlers file for http_auth
+- name: "restarting the haproxy"
+  service:
+    name: "haproxy"
+    state: restarted

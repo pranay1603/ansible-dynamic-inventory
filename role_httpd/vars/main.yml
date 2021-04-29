@@ -1,0 +1,6 @@
+---
+# vars file for role_httpd
+
+x:
+ - "httpd"
+ - "php"   

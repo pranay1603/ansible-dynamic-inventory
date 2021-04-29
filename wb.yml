@@ -1,0 +1,31 @@
+- name: "launching webserver in aws  cloud "
+  ec2:
+       assign_public_ip: yes
+       aws_access_key: "{{ x }}"
+       aws_secret_key: "{{ y }}"
+       count: 3
+       group_id: sg-5780ce30
+       wait: yes
+       wait_timeout: 60
+       image: ami-0a9d27a9f4f5c0efc
+       instance_tags:
+               Name: Webserver
+               country: IN
+               ENV: PROD
+       instance_type: t2.micro
+       key_name: pranaykey
+       region: ap-south-1
+       state: present
+       vpc_subnet_id: subnet-5ddcd635
+  register: web
+
+- name: "adding ips to inventory"
+  blockinfile:
+    path: /inventory/invent
+    create: yes
+    block: |
+      [webserver]
+      {{ web.instances[0].public_ip }}
+      {{ web.instances[1].public_ip }}
+      {{ web.instances[2].public_ip }}
+  

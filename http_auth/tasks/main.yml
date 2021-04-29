@@ -1,0 +1,17 @@
+---
+# tasks file for http_auth
+- name: "installing haproxy"
+  package:
+    name: "haproxy" 
+    
+- name: "configuring the haproxy"
+  template:
+    src:  "templates/haproxy.cfg"
+    dest: "/etc/haproxy/"   
+  notify: "restarting the haproxy"
+
+- name: "starting the service"
+  service: 
+    name: "haproxy"
+    state: started
+   

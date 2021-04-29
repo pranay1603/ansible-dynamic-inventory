@@ -1,0 +1,12 @@
+- hosts: localhost
+  vars:
+     - file:
+              - wb.yml
+              - lb.yml
+  vars_files:
+        - files.yml
+  tasks:
+  - include_tasks: "{{ item }}"
+    loop: "{{ file }}"
+
+
